@@ -1,0 +1,17 @@
+{
+  "source": "https://github.com/tt-a1i/archify",
+  "installedSource": "C:/Users/xutia/.codex/skills/archify",
+  "files": {
+    "LICENSE": "b799ab081703e7821ae5096d2c1abdf14bbdc75e8ea1c4045998c36ed6db9706",
+    "THIRD_PARTY_NOTICES.md": "0b7fb59365dc21c93b0f62526d74ee913aeec9ae532c112bc76afa7edcd56e14",
+    "renderers/shared/geometry.mjs": "161785af32241fc96df051c9be4f2bb9c3b897418d708f4a051b63f1c44952cf",
+    "renderers/shared/utils.mjs": "20124265300eb286db184a053561005cc32b6128dc1bc1b3f9520ffa8d43a241",
+    "renderers/shared/text-fit.mjs": "35b6ef2c64d88c1ea4e5aab2af7c4e8a2c2e1be62db71263787d39a9797e7dea",
+    "renderers/architecture/render-architecture.mjs": "f57077cb9fa64a8412ab0af705cb31e2e7a920114b31852882c04a76840365dc"
+  },
+  "adaptations": [
+    "Browser diagnostic sink replaces filesystem diagnostics.",
+    "Architecture route functions extracted without CLI.",
+    "Explicit editor connection sides retain exact midpoint ports."
+  ]
+}

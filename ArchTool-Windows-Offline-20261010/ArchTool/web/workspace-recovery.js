@@ -1,0 +1,10 @@
+/* Last workspace only; raw uploads are not persisted. */
+'use strict';
+(()=>{
+const KEY='archtool.workspace.v2';let timer,last='',restoring=true;
+function data(){return {format:'goutu-demo',version:2,mode,graph,instructions:$('instructions').value,status:window.analysisLastStatus,savedAt:new Date().toISOString()};}
+function persist(){if(restoring)return;try{const value=JSON.stringify(data());if(value===last)return;localStorage.setItem(KEY,value);last=value;$('recoveryState').textContent='已自动保存到本机 · '+new Date().toLocaleTimeString();}catch(error){$('recoveryState').textContent='自动保存失败，请导出项目文件：'+error.message;}}
+const state=document.createElement('div');state.id='recoveryState';state.className='hint';state.style.padding='8px 18px';document.querySelector('.layout>aside').append(state);
+try{const value=localStorage.getItem(KEY);if(value){const saved=JSON.parse(value);validate(saved);mode=saved.mode==='code'?'code':'rfp';$('rfp').classList.toggle('active',mode==='rfp');$('code').classList.toggle('active',mode==='code');graph=saved.graph;$('instructions').value=saved.instructions||'';selection=null;render();inspect();$('fit').click();$('chooseDirectory').hidden=mode!=='code';$('uploadTitle').textContent=mode==='code'?'选择代码文件 / ZIP':'选择 RFP 文档';$('uploadHint').textContent=mode==='code'?'目录、ZIP、混合语言项目':'PDF（文字型）/ Markdown / TXT';$('generate').textContent=mode==='code'?'分析代码并绘图 →':'分析需求并绘图 →';showAnalysisStatus('已恢复上次画布与补充要求。原始上传文件不自动保存，重新分析需再次选择资料。'+(saved.status?.kind==='error'?'\n'+saved.status.message:''),saved.status?.kind==='error'?'error':'info');last=value;state.textContent='已恢复 '+new Date(saved.savedAt).toLocaleString();}}catch(error){state.textContent='上次工作区无法恢复，请打开已导出的项目文件。';}restoring=false;
+const previous=render;render=function(){previous();clearTimeout(timer);timer=setTimeout(persist,450);};$('instructions').addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(persist,450);});const show=showAnalysisStatus;window.showAnalysisStatus=function(...args){show(...args);clearTimeout(timer);timer=setTimeout(persist,450);};window.addEventListener('pagehide',persist);window.persistArchitectureWorkspace=persist;
+})();

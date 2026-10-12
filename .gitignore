@@ -1,0 +1,25 @@
+# 大文件 / 二进制 / 运行时
+ArchTool-Windows-Offline-20261010/ArchTool/python/
+ArchTool-Windows-Offline-20261010/ArchTool/runtime/
+ArchTool-Windows-Offline-20261010/ArchTool/models/
+ArchTool-Windows-Offline-20261010/ArchTool/node.exe
+*.exe
+*.dll
+*.pyd
+*.pyc
+*.gguf
+*.zip
+
+# 日志和进程文件
+*.log
+*-process.json
+
+# 交付物（仅源码）
+石榴构图-交付/
+
+# 其他
+demo-data-all/
+.codebuddy/
+__pycache__/
+*.egg-info/
+node_modules/

@@ -1,0 +1,5 @@
+{
+  "templateUpstreamSha256": "505f1c6baa9c2454475c048aa75df8abd867e680e7b3b794b9218a95a56fc370",
+  "templatePatchedSha256": "8e65a46e052957eff209a208c803f4ff364139209c6e50e0f0fbf97d6dadd030",
+  "patch": "Enable existing desktop outer-width solver for all positive SVG aspect ratios; keep geometry, fonts, minimum width and validators unchanged."
+}

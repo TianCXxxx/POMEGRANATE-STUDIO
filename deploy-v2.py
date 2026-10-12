@@ -7,7 +7,7 @@ for name in ('code-analyzer.py','input_loader.py','project_facts.py','rfp_facts.
 for name in ('project-javascript.js','offline-pipeline.js','architecture-renderer.js','compact-layout.js','canonical-drawio.js','quality-boundaries.js','workspace-recovery.js','relationship-preview.js','diagram-repair.js'):
     if (root/name).exists():
         shutil.copy2(root/name,bundle/'web'/name)
-for path in [bundle/'web'/name for name in ('index.html','apple.html')]:
+for path in [bundle/'web'/'index.html']:
     if not path.exists():
         continue
     text=path.read_text(encoding='utf-8-sig')

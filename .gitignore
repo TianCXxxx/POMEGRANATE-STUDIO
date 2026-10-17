@@ -152,3 +152,6 @@
 **/*.pyc
 **/*.log
 **/*-process.json
+
+!/docs/
+!/docs/index.html

@@ -10,7 +10,7 @@ const directory=document.createElement('input');directory.type='file';directory.
 const folder=document.createElement('button');folder.id='chooseDirectory';folder.className='quiet small full';folder.textContent='选择项目目录';$('drop').after(folder);folder.onclick=()=>{if(!busy)directory.click()};directory.onchange=async()=>{await ingest(directory.files);directory.value=''};
 const status=document.createElement('div');status.id='analysisResult';status.setAttribute('role','status');status.hidden=true;document.querySelector('.canvas-head').after(status);
 const empty=document.createElement('div');empty.className='canvas-empty-state';empty.innerHTML='<strong>从一份资料开始</strong><span>上传 RFP、项目目录或 ZIP，生成可编辑架构图</span>';document.querySelector('.canvas-wrap').append(empty);
-const progress=document.createElement('div');progress.id='analysisProgress';progress.className='analysis-progress';progress.hidden=true;progress.innerHTML='<div class="progress-title"><strong id="analysisStage">准备分析</strong><span id="analysisElapsed"></span></div><div class="analysis-track"><progress id="analysisBar" max="100" value="0" aria-label="分析阶段进度"></progress><span class="analysis-motion" aria-hidden="true"><span class="analysis-shimmer"></span></span></div><div id="analysisDetail"></div>';document.querySelector('.canvas-wrap').append(progress);
+const progress=document.createElement('div');progress.id='analysisProgress';progress.className='analysis-progress';progress.hidden=true;progress.innerHTML='<div class="analysis-visual" aria-hidden="true"><svg viewBox="0 0 240 86"><path class="waiting-link" d="M38 24H84Q98 24 98 43H140M38 62H84Q98 62 98 43M164 43H202"/><g class="waiting-source"><rect x="18" y="12" width="28" height="24" rx="7"/><path d="M26 21h12m-12 6h8"/></g><g class="waiting-source waiting-source-two"><rect x="18" y="50" width="28" height="24" rx="7"/><path d="m28 58-4 4 4 4m8-8 4 4-4 4"/></g><g class="waiting-core"><rect x="130" y="23" width="40" height="40" rx="13"/><circle cx="143" cy="37" r="3"/><circle cx="158" cy="39" r="3"/><circle cx="150" cy="51" r="3"/></g><rect class="waiting-output" x="198" y="30" width="26" height="26" rx="8"/></svg><span>正在构建你的架构</span></div><div class="progress-title"><strong id="analysisStage">准备分析</strong><span id="analysisElapsed"></span></div><div class="analysis-track"><progress id="analysisBar" max="100" value="0" aria-label="分析阶段进度"></progress><span class="analysis-motion" aria-hidden="true"><span class="analysis-shimmer"></span></span></div><div id="analysisDetail"></div>';document.querySelector('.canvas-wrap').append(progress);
 const css=document.createElement('style');css.textContent='.canvas-wrap{position:relative}.canvas-empty-state{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;color:#8493a8;pointer-events:none;font-size:12px}.canvas-empty-state strong{font-size:22px;color:#64748b}.analysis-progress{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:min(480px,90%);padding:22px;background:#f8fbfff2;backdrop-filter:blur(20px);border:1px solid white;box-shadow:0 12px 40px #36557526;border-radius:18px;z-index:5}.progress-title{display:flex;justify-content:space-between;gap:12px;font-size:13px}#analysisElapsed,#analysisDetail{font-size:11px;color:#64748b}#analysisBar{width:100%;height:8px;accent-color:#0071e3;margin:16px 0 10px}#analysisResult{padding:10px 20px;font-size:12px;line-height:1.6;border-bottom:1px solid #dce5ee;background:#f0f7ff;color:#355777;white-space:pre-wrap}#analysisResult[data-kind=error]{background:#fff1ed;color:#923e2c}.filelist{max-height:160px;overflow:auto}.evidence{white-space:pre-wrap;overflow-wrap:anywhere}[hidden]{display:none!important}';document.head.append(css);
 css.textContent+=`
 .analysis-track{position:relative;height:8px;margin:16px 0 12px;border-radius:99px;overflow:hidden;background:#dfe8f3}
@@ -21,6 +21,26 @@ css.textContent+=`
 .analysis-motion{position:absolute;inset:0 auto 0 0;width:var(--analysis-progress,0%);border-radius:99px;overflow:hidden;pointer-events:none}
 .analysis-shimmer{display:block;width:100%;height:100%;background:linear-gradient(100deg,transparent 20%,#ffffff18 35%,#ffffffaa 50%,#ffffff18 65%,transparent 80%);animation:analysis-flow 1.6s linear infinite;animation-play-state:paused}
 .analysis-progress[data-running="true"] .analysis-shimmer{animation-play-state:running}
+.analysis-visual{display:flex;flex-direction:column;align-items:center;gap:6px;margin:-4px 0 22px;color:#9b3353;font-size:11px;letter-spacing:1px}
+.analysis-visual svg{width:240px;max-width:100%;height:86px;overflow:visible}
+.waiting-link{fill:none;stroke:#c9184a;stroke-width:2;stroke-dasharray:5 7;opacity:.55;animation:waiting-current 1.2s linear infinite}
+.waiting-source rect,.waiting-output{fill:#fff9;stroke:#d9a7ba;stroke-width:1.4}
+.waiting-source path{fill:none;stroke:#ab5572;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.waiting-source{animation:waiting-float 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.waiting-source-two{animation-delay:-1.4s}
+.waiting-core rect{fill:#c9184a;stroke:#fffa;stroke-width:1.5}
+.waiting-core circle{fill:#fff;animation:waiting-seed 1.8s ease-in-out infinite}
+.waiting-core circle:nth-of-type(2){animation-delay:.3s}.waiting-core circle:nth-of-type(3){animation-delay:.6s}
+.waiting-output{animation:waiting-seed 1.8s ease-in-out infinite;animation-delay:.9s}
+.analysis-progress .analysis-track{background:#f0e1e9}
+.analysis-progress #analysisBar::-webkit-progress-bar{background:#f0e1e9}
+.analysis-progress #analysisBar::-webkit-progress-value{background:linear-gradient(90deg,#c9184a,#e774a3)}
+.analysis-progress #analysisBar::-moz-progress-bar{background:linear-gradient(90deg,#c9184a,#e774a3)}
+.analysis-progress:not([data-running="true"]) .analysis-visual *{animation-play-state:paused}
+@keyframes waiting-current{to{stroke-dashoffset:-24}}
+@keyframes waiting-float{50%{transform:translateY(-4px)}}
+@keyframes waiting-seed{0%,100%{opacity:.4}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.analysis-visual *{animation:none!important}}
 @keyframes analysis-flow{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 @media(prefers-reduced-motion:reduce){.analysis-shimmer{animation:none;opacity:0}}
 `;

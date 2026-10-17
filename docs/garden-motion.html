@@ -5,12 +5,15 @@
 .orbit{animation:none;opacity:.16;stroke:#a695c3}
 .glass-highlight{animation:garden-breath 3.8s ease-in-out infinite;will-change:opacity}
 .highlight-late{animation-delay:-1.9s}
-.seed{animation:garden-seed 4.2s ease-in-out infinite;animation-delay:var(--delay)}
+.seed{animation:garden-jewel 3.6s ease-in-out infinite;animation-delay:var(--delay)}
 .spark{animation:garden-breath 3.8s ease-in-out infinite}
 .card::before{animation:garden-glass 4.6s ease-in-out infinite;will-change:opacity}
 .track{height:6px}.track i{left:-45%;width:45%;opacity:1;background:linear-gradient(90deg,transparent,#aa91c5,#e0cff0,#ffffffb8,transparent);animation:garden-flow 2.8s ease-in-out infinite;will-change:transform}
 .live{animation:garden-seed 3s ease-in-out infinite;background:#a48abb}
 .actions{margin-bottom:16px}button{background:linear-gradient(130deg,#ffffffbd,#ffffff63);color:#77678b;box-shadow:inset 0 1px 0 white}
+.art{animation:garden-float 5.2s ease-in-out infinite;will-change:transform}
+@keyframes garden-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes garden-jewel{0%,100%{fill:#d7b6dc;opacity:.82}50%{fill:#a83d88;opacity:1}}
 @keyframes garden-breath{0%,100%{opacity:.3}50%{opacity:.95}}
 @keyframes garden-seed{0%,100%{opacity:.72}50%{opacity:1}}
 @keyframes garden-glass{0%,100%{opacity:.4}50%{opacity:1}}

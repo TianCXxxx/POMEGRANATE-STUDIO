@@ -204,7 +204,12 @@ class Handler(BaseHTTPRequestHandler):
         if self.path.startswith('/jobs/'):
             job = analysis_pipeline.snapshot(self.path.split('/')[-1])
             return self.respond(200 if job else 404, job or {'error': '任务不存在'})
-        self.respond(200 if self.path == '/health' else 404, {'service': 'architecture-pipeline-v2'})
+        if self.path == '/health':
+            try:
+                return self.respond(200, {'service': 'architecture-pipeline-v2', **analysis_pipeline.model_status()})
+            except ValueError as error:
+                return self.respond(400, {'error': str(error)})
+        self.respond(404, {'error': 'Not found'})
 
     def do_POST(self):
         try:

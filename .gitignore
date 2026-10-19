@@ -157,3 +157,6 @@
 !/samples/
 !/samples/architecture-cases/
 !/samples/architecture-cases/**
+
+# Per-machine model configuration must never be published.
+**/provider.local.json

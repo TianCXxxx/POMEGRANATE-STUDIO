@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>会议室预约</title></head>
+<body>
+  <h1>会议室预约</h1>
+  <form id="booking-form">
+    <label>会议室 <select id="room" required></select></label>
+    <label>预约人 <input id="booker" required maxlength="80"></label>
+    <label>时段 <input id="slot" required maxlength="80" placeholder="例如 周一 10:00"></label>
+    <button type="submit">提交预约</button>
+  </form>
+  <p id="message" role="status"></p>
+  <h2>已有预约</h2>
+  <ul id="bookings"></ul>
+  <script type="module">import './src/BookingPage.js';</script>
+</body>
+</html>

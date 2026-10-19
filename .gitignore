@@ -158,5 +158,9 @@
 !/samples/architecture-cases/
 !/samples/architecture-cases/**
 
+# Do not include generated Python caches inside sample projects.
+**/__pycache__/
+**/*.pyc
+
 # Per-machine model configuration must never be published.
 **/provider.local.json

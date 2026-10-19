@@ -1,0 +1,20 @@
+services:
+  fulfillment:
+    image: example/02-fulfillment-network-fulfillment:demo
+    command: uvicorn services.fulfillment.main:app --host 0.0.0.0 --port 8200
+    ports: ['8200:8200']
+  warehouse:
+    image: example/02-fulfillment-network-warehouse:demo
+    command: uvicorn services.warehouse.main:app --host 0.0.0.0 --port 8201
+    ports: ['8201:8201']
+  carrier:
+    image: example/02-fulfillment-network-carrier:demo
+    command: uvicorn services.carrier.main:app --host 0.0.0.0 --port 8202
+    ports: ['8202:8202']
+  tracking:
+    image: example/02-fulfillment-network-tracking:demo
+    command: uvicorn services.tracking.main:app --host 0.0.0.0 --port 8203
+    ports: ['8203:8203']
+  rabbitmq:
+    image: rabbitmq:3
+    ports: ['5672:5672']

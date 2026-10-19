@@ -1,0 +1,7 @@
+{
+  "name": "01-order-platform-web",
+  "private": true,
+  "dependencies": {
+    "react": "^18.3.1"
+  }
+}

@@ -1,0 +1,23 @@
+services:
+  metrics:
+    image: example/03-insights-platform-metrics:demo
+    command: uvicorn services.metrics.main:app --host 0.0.0.0 --port 8300
+    ports: ['8300:8300']
+  identity:
+    image: example/03-insights-platform-identity:demo
+    command: uvicorn services.identity.main:app --host 0.0.0.0 --port 8301
+    ports: ['8301:8301']
+  catalog:
+    image: example/03-insights-platform-catalog:demo
+    command: uvicorn services.catalog.main:app --host 0.0.0.0 --port 8302
+    ports: ['8302:8302']
+  reports:
+    image: example/03-insights-platform-reports:demo
+    command: uvicorn services.reports.main:app --host 0.0.0.0 --port 8303
+    ports: ['8303:8303']
+  rabbitmq:
+    image: rabbitmq:3
+    ports: ['5672:5672']
+  redis:
+    image: redis:7
+    ports: ['6379:6379']

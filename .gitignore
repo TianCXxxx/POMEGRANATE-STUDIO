@@ -152,3 +152,8 @@
 **/*.pyc
 **/*.log
 **/*-process.json
+
+# Sample projects for architecture generation
+!/samples/
+!/samples/architecture-cases/
+!/samples/architecture-cases/**

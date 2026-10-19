@@ -1,0 +1,1 @@
+"""Illustrative architecture input."""

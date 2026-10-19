@@ -11,4 +11,3 @@ class CarrierClient:
         response = httpx.post('http://localhost:8202/carrier/book', json={'reference': reference, 'amount': amount}, timeout=5.0)
         response.raise_for_status()
         return response.json()
-
